@@ -1,0 +1,140 @@
+#:import T ui.theme
+
+# Quick-tap key button
+<QuickKey@Button>:
+    background_normal: ''
+    background_down: ''
+    background_color: T.PANEL_ALT
+    color: T.KALI_CYAN
+    font_size: T.FONT_KEY
+    font_name: T.FONT_MONO
+    bold: True
+    size_hint_x: 1
+    halign: 'center'
+    valign: 'middle'
+    text_size: self.size
+    padding: 0, 0
+
+<TerminalScreen>:
+    orientation: 'vertical'
+    padding: [T.PAD, T.SAFE_TOP, T.PAD, T.SAFE_BOTTOM]
+    spacing: T.SPACING
+    canvas.before:
+        Color:
+            rgba: T.BG
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    # ---- Title bar (sits below the notch) ----
+    BoxLayout:
+        size_hint_y: None
+        height: T.ROW_H
+        padding: [T.PAD, 0]
+        canvas.before:
+            Color:
+                rgba: T.PANEL
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: 'KALI-VIVO TERMINAL'
+            color: T.KALI_BLUE
+            font_size: T.FONT_TITLE
+            font_name: T.FONT_MONO
+            bold: True
+            halign: 'left'
+            valign: 'middle'
+            text_size: self.size
+        Label:
+            text: 'session 1'
+            color: T.MUTED
+            font_size: T.FONT_KEY
+            font_name: T.FONT_MONO
+            size_hint_x: 0.4
+            halign: 'right'
+            valign: 'middle'
+            text_size: self.size
+
+    # ---- Scrollable output log ----
+    ScrollView:
+        id: scroll
+        do_scroll_x: False
+        bar_width: T.BAR_W
+        bar_color: T.KALI_BLUE[0], T.KALI_BLUE[1], T.KALI_BLUE[2], 0.6
+        bar_inactive_color: T.BORDER[0], T.BORDER[1], T.BORDER[2], 0.4
+        canvas.before:
+            Color:
+                rgba: T.PANEL
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        BoxLayout:
+            id: output
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            spacing: dp(2)
+            padding: [T.PAD, T.PAD]
+
+    # ---- Quick-tap terminal keys ----
+    GridLayout:
+        id: quick_keys
+        cols: 7
+        size_hint_y: None
+        height: T.KEY_H
+        spacing: dp(4)
+        QuickKey:
+            text: 'TAB'
+            on_release: root.key_tap(self.text)
+        QuickKey:
+            text: 'CTRL+C'
+            color: T.KALI_RED
+            on_release: root.key_tap(self.text)
+        QuickKey:
+            text: 'ESC'
+            on_release: root.key_tap(self.text)
+        QuickKey:
+            text: '/'
+            on_release: root.key_tap(self.text)
+        QuickKey:
+            text: '-'
+            on_release: root.key_tap(self.text)
+        QuickKey:
+            text: 'UP'
+            on_release: root.key_tap(self.text)
+        QuickKey:
+            text: 'DOWN'
+            on_release: root.key_tap(self.text)
+
+    # ---- Prompt + command input ----
+    BoxLayout:
+        size_hint_y: None
+        height: T.ROW_H
+        spacing: dp(4)
+        padding: [T.PAD, 0, dp(4), 0]
+        canvas.before:
+            Color:
+                rgba: T.PANEL
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            id: prompt
+            text: T.PROMPT
+            markup: True
+            size_hint_x: None
+            width: self.texture_size[0]
+            font_size: T.FONT_INPUT
+            font_name: T.FONT_MONO
+        TextInput:
+            id: cmd
+            multiline: False
+            write_tab: False
+            font_name: T.FONT_MONO
+            font_size: T.FONT_INPUT
+            foreground_color: T.TEXT
+            background_color: 0, 0, 0, 0
+            cursor_color: T.KALI_GREEN
+            padding: [0, dp(13), 0, dp(10)]
+            on_text_validate: root.submit()

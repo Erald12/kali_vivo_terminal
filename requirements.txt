@@ -1,0 +1,2 @@
+# Local development dependencies. Keep the Kivy version in sync with buildozer.spec.
+kivy==2.3.1
