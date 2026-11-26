@@ -21,7 +21,7 @@ source.exclude_patterns = *.pyc,*.pyo
 version = 0.1.0
 
 # Pinned for reproducible builds. Keep in sync with requirements.txt.
-requirements = python3,kivy==2.3.1
+requirements = python3,kivy==2.3.1,filetype==1.2.0
 
 # Vivo Y27: tall FHD+ screen, portrait only.
 orientation = portrait
