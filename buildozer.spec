@@ -10,6 +10,7 @@
 title = Kali Vivo Terminal
 package.name = kalivivoterminal
 package.domain = org.kalivivo
+p4a.branch = v2024.01.21
 
 # Entry point is src/main.py (Buildozer requires main.py at source.dir root).
 source.dir = src
