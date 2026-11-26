@@ -59,9 +59,9 @@ jobs:
             .buildozer
             ~/.gradle/caches
             ~/.gradle/wrapper
-          key: buildozer-${{ runner.os }}-${{ hashFiles('buildozer.spec', 'requirements.txt') }}
+          key: buildozer-v2-ubuntu22-${{ hashFiles('buildozer.spec', 'requirements.txt') }}
           restore-keys: |
-            buildozer-${{ runner.os }}-
+            buildozer-v2-ubuntu22-
 
       - name: Install Buildozer
         run: |
